@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.easycheng.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_NoOpt|x64">
+      <Configuration>Release_NoOpt</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug_CpuOnly|x64">
+      <Configuration>Debug_CpuOnly</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release_CpuOnly|x64">
+      <Configuration>Release_CpuOnly</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E6F26F9A-FF64-4F0A-B749-CD309EE357EE}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>EASYGEN</RootNamespace>
+    <ProjectName>EASYGEN</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\EasyCheng.Cpp.Default.props" />
+  <Import Project="$(SolutionDir)\EASYGEN.Cpp.props" />
+  <PropertyGroup Condition="$(DebugBuild)" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(ReleaseBuild)" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\EasyCheng.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\EasyCheng.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\EasyCheng.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="$(DebugBuild)">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="$(ReleaseBuild)">
+    <LinkIncremental>false</LinkIncremental>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\EASYGENv2LibraryDll;$(SolutionDir)Source\EASYGENv2LibraryDll\API;$(SolutionDir)Source\EASYGENv2LibraryDll\API\Internals;$(SolutionDir)Source\EASYGENv2LibraryDll\Generated\Windows;$(SolutionDir)Source\Readers\ReaderLib;$(SolutionDir)Source\ActionsLib;$(SolutionDir)Source\SequenceTrainingLib;$(SolutionDir)Source\SGDLib;$(SolutionDir)Source\ComputationNetworkLib;$(SolutionDir)Source\Math;$(SolutionDir)Source\Common\Include;$(SolutionDir)Source\EASYGEN\HuashuScript;$(MSMPI_INC);$(NvmlInclude);$(SolutionDir)Source\PerformanceProfilerDll</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4819</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(MSMPI_LIB64);$(OutDir);$(NvmlLibPath)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(DebugBuild)">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_SCL_SECURE_NO_WARNINGS;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <OpenMPSupport>true</OpenMPSupport>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>EasyGen.Core-$(EasyGenComponentVersion).lib;EasyGen.Actions-$(EasyGenComponentVersion).lib; EasyGen.SGD-$(EasyGenComponentVersion).lib; EasyGen.ComputationNetwork-$(EasyGenComponentVersion).lib; EasyGen.Math-$(EasyGenComponentVersion).lib; EasyGen.Common-$(EasyGenComponentVersion).lib; kernel32.lib; user32.lib; shell32.lib; EasyGen.SequenceTrainingLib-$(EasyGenComponentVersion).lib; EasyGen.PerformanceProfiler-$(EasyGenComponentVersion).lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <DelayLoadDLLs>EasyGen.Math-$(EasyGenComponentVersion).dll; msmpi.dll; nvml.dll; $(CudaRuntimeDll)</DelayLoadDLLs>
+      <StackReserveSize>200000000</StackReserveSize>
+    </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(ReleaseBuild)">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <AdditionalOptions>/d2Zi+ %(AdditionalOptions)</AdditionalOptions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>EasyGen.Core-$(EasyGenComponentVersion).lib;EasyGen.Actions-$(EasyGenComponentVersion).lib; EasyGen.SGD-$(EasyGenComponentVersion).lib; EasyGen.ComputationNetwork-$(EasyGenComponentVersion).lib; EasyGen.Math-$(EasyGenComponentVersion).lib; EasyGen.Common-$(EasyGenComponentVersion).lib; kernel32.lib; user32.lib; shell32.lib; EasyGen.SequenceTrainingLib-$(EasyGenComponentVersion).lib; EasyGen.PerformanceProfiler-$(EasyGenComponentVersion).lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <Profile>true</Profile>
+      <DelayLoadDLLs>EasyGen.Math-$(EasyGenComponentVersion).dll; msmpi.dll; nvml.dll; $(CudaRuntimeDll)</DelayLoadDLLs>
+      <StackReserveSize>200000000</StackReserveSize>
+    </Link>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(CpuOnlyBuild)">
+    <ClCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);CPUONLY</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <DelayLoadDLLs>EasyGen.Math-$(EasyGenComponentVersion).dll; msmpi.dll;</DelayLoadDLLs>
+    </Link>
+    <PostBuildEvent>
+      <Message>Copying dependencies</Message>
+      <Command>xcopy /I /D /Y "$(ProjectDir)HuashuScript\EASYGENCoreLib\EASYGEN.core.bs" "$(TargetDir)"</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="$(GpuBuild)">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(CudaInclude)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories);$(CudaLibPath)</AdditionalLibraryDirectories>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy /I /D /Y "$(ProjectDir)HuashuScript\EASYGENCoreLib\EASYGEN.core.bs" "$(TargetDir)" &amp;&amp; if exist "$(NvmlDll)" xcopy /I /D /Y "$(NvmlDll)" "$(TargetDir)"</Command>
+      <Message>Copying dependencies</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="HuashuScript\Doc\Notes.txt" />
+    <Text Include="DefaultMacros.txt" />
+    <Text Include="modelEditor.txt" />
+    <Text Include="modelEditorFromScratch.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Common\CrossProcessMutex.h" />
+    <ClInclude Include="..\Common\Include\basetypes.h" />
+    <ClInclude Include="..\Common\Include\Basics.h" />
+    <ClInclude Include="..\Common\Include\BestGpu.h" />
+    <ClInclude Include="..\Common\Include\DataReader.h" />
+    <ClInclude Include="..\Common\Include\EnvironmentUtil.h" />
+    <ClInclude Include="..\Common\Include\ExceptionWithCallStack.h" />
+    <ClInclude Include="..\Common\Include\Globals.h" />
+    <ClInclude Include="..\Common\Include\StringUtil.h" />
+    <ClInclude Include="..\Common\Include\TensorShape.h" />
+    <ClInclude Include="..\Common\Include\DataWriter.h" />
+    <ClInclude Include="..\Common\Include\File.h" />
+    <ClInclude Include="..\Common\Include\fileutil.h" />
+    <ClInclude Include="..\Common\Include\hostname.h" />
+    <ClInclude Include="..\Common\Include\Platform.h" />
+    <ClInclude Include="..\Common\Include\ProgressTracing.h" />
+    <ClInclude Include="..\Common\Include\ScriptableObjects.h" />
+    <ClInclude Include="..\Common\Include\Sequences.h" />
+    <ClInclude Include="..\Common\Include\TimerUtility.h" />
+    <ClInclude Include="..\ComputationNetworkLib\EvaluationNodes.h" />
+    <ClInclude Include="..\ComputationNetworkLib\TrainingNodes.h" />
+    <ClInclude Include="..\Math\CPUMatrix.h" />
+    <ClInclude Include="..\Math\Matrix.h" />
+    <ClInclude Include="..\ComputationNetworkLib\PreComputeNodes.h" />
+    <ClInclude Include="..\ComputationNetworkLib\MatrixPool.h" />
+    <ClInclude Include="..\Readers\CompositeDataReader\CompositeDataReader.h" />
+    <ClInclude Include="..\Readers\ReaderLib\BlockRandomizer.h" />
+    <ClInclude Include="..\Readers\ReaderLib\Bundler.h" />
+    <ClInclude Include="..\Readers\ReaderLib\ChunkRandomizer.h" />
+    <ClInclude Include="..\Readers\ReaderLib\DataDeserializer.h" />
+    <ClInclude Include="..\Readers\ReaderLib\MemoryProvider.h" />
+    <ClInclude Include="..\Readers\ReaderLib\NoRandomizer.h" />
+    <ClInclude Include="..\Readers\ReaderLib\Packer.h" />
+    <ClInclude Include="..\Readers\ReaderLib\Reader.h" />
+    <ClInclude Include="..\Readers\ReaderLib\SequencePacker.h" />
+    <ClInclude Include="..\Readers\ReaderLib\SequenceRandomizer.h" />
+    <ClInclude Include="..\Readers\ReaderLib\StringToIdMap.h" />
+    <ClInclude Include="..\Readers\ReaderLib\Transformer.h" />
+    <ClInclude Include="..\SGDLib\DataReaderHelpers.h" />
+    <ClInclude Include="..\SGDLib\SGD.h" />
+    <ClInclude Include="..\SGDLib\SimpleEvaluator.h" />
+    <ClInclude Include="..\SGDLib\SimpleOutputWriter.h" />
+    <ClInclude Include="..\ComputationNetworkLib\ComputationNetwork.h" />
+    <ClInclude Include="..\ComputationNetworkLib\ComputationNetworkBuilder.h" />
+    <ClInclude Include="..\ComputationNetworkLib\ComputationNode.h" />
+    <ClInclude Include="..\ComputationNetworkLib\ConvolutionalNodes.h" />
+    <ClInclude Include="HuashuScript\HuashuScriptEvaluator.h" />
+    <ClInclude Include="HuashuScript\HuashuScriptParser.h" />
+    <ClInclude Include="..\ComputationNetworkLib\InputAndParamNodes.h" />
+    <ClInclude Include="..\ComputationNetworkLib\LinearAlgebraNodes.h" />
+    <ClInclude Include="ModelEditLanguage.h" />
+    <ClInclude Include="..\ComputationNetworkLib\NonlinearityNodes.h" />
+    <ClInclude Include="..\ComputationNetworkLib\RecurrentNodes.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HuashuScript\HuashuScriptEvaluator.cpp" />
+    <ClCompile Include="HuashuScript\HuashuScriptParser.cpp" />
+    <ClCompile Include="EASYGEN.cpp" />
+    <ClCompile Include="ModelEditLanguage.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="tests.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="HuashuScript\EASYGENCoreLib\EASYGEN.core.bs">
+      <FileType>Document</FileType>
+      <DeploymentContent>true</DeploymentContent>
+      <ExcludedFromBuild>false</ExcludedFromBuild>
+    </Xml>
+    <None Include="HuashuScript\Doc\HuashuScript--extending the EASYGEN config language, Frank Seide August 2015.pptx" />
+    <None Include="prebuild.bat" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\EasyCheng.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
